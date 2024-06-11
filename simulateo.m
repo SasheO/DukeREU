@@ -8,7 +8,7 @@ FREQUENCIES_FOR_22_CHANNELS_TABLE_2 = [188, 313, 438, 563, 688, 813, 938, 1063, 
 frequency_ranges = FREQUENCIES_FOR_6_CHANNELS_TABLE_2;
 filename = 'LL-Q1860_(eng)-Vealhurl-cosmos2.wav';
 LEN_TIME_QUANTIZED_MS = 8;
-OVERLAP_MS = 0;
+OVERLAP_MS = 6;
 
 
 [data,Fs] = audioread(filename);
@@ -108,14 +108,14 @@ for indx=1:length(frequency_ranges)-1
         amplitude = rms_energy_values(indx,rms_energy_indx); % amplitude = rms energy
         samples = linspace(0, period, Fs*period);
         y = amplitude * sin(2 * pi * samples * average_frequency);
-        signal(indx,start_indx:start_indx+frame_step-1) = y;
-        start_indx = start_indx + frame_step;
+        signal(indx,start_indx:start_indx+overlap_step-1) = y;
+        start_indx = start_indx + overlap_step;
     end
     % to do: construct sinusoid for last frame
     amplitude = rms_energy_values(indx,end);  % amplitude = rms energy
-    period = period*(final_frame_length/double(frame_step));
+    period = period*(final_frame_length/double(overlap_step));
     samples = linspace(0, period, Fs*period);
-    y = amplitude * sin(2 * pi * samples / period);
+    y = amplitude * sin(2 * pi * samples * average_frequency);
     signal(indx,start_indx:end) = y;
 end
 
