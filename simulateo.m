@@ -5,10 +5,10 @@ FREQUENCIES_FOR_6_CHANNELS_TABLE_2 = [188, 563, 1063, 1813, 2938, 4813, 7938];
 FREQUENCIES_FOR_22_CHANNELS_TABLE_2 = [188, 313, 438, 563, 688, 813, 938, 1063, 1188, 1438, 1688, 1938, 2313, 2688, 3188, 3688, 4313, 5603, 5938, 6938, 7938];
 
 %%% CHANGE THESE %%%
-frequency_ranges = FREQUENCIES_FOR_6_CHANNELS_TABLE_2;
+frequency_ranges = FREQUENCIES_FOR_22_CHANNELS_TABLE_2;
 filename = 'LL-Q1860_(eng)-Vealhurl-cosmos2.wav';
 LEN_TIME_QUANTIZED_MS = 8;
-OVERLAP_MS = 6;
+OVERLAP_MS = 0;
 
 
 [data,Fs] = audioread(filename);
@@ -25,7 +25,7 @@ disp(["sample_rate:", num2str(Fs), " samples/sec"]);
 
 % bandpass signal
 bandpassed_frequencies_low_to_high = rand(length(frequency_ranges)-1,length(data));
-for indx = [1:1:length(frequency_ranges)-1]
+for indx = 1:1:length(frequency_ranges)-1
     low = frequency_ranges(indx); high = frequency_ranges(indx+1);
     bandpassed_frequencies_low_to_high(indx,:) = bandpass(data,[low high],Fs);
 end
@@ -48,13 +48,13 @@ figure();
 
 % plot the enveloped/rectified
 enveloped_frequencies_low_to_high = rand(size(bandpassed_frequencies_low_to_high, 1),length(data));
-for indx = [1:1:length(frequency_ranges)-1]
+for indx = 1:1:length(frequency_ranges)-1
     enveloped_frequencies_low_to_high(indx,:) = abs(bandpassed_frequencies_low_to_high(indx,:));
 end
 % plot the rectified frequencies
 subplot(size(enveloped_frequencies_low_to_high,1)+1,1,1);
 plot(times,data,"LineWidth",1.5);
-for indx = [1:1:length(frequency_ranges)-1]
+for indx = 1:1:length(frequency_ranges)-1
     subplot(size(enveloped_frequencies_low_to_high,1)+1,1,indx+1);
     low = frequency_ranges(indx); 
     high = frequency_ranges(indx+1);
@@ -119,21 +119,24 @@ for indx=1:length(frequency_ranges)-1
     signal(indx,start_indx:end) = y;
 end
 
-subplot(size(signal,1)+1,1,1);
-plot(times,sum(signal, 1),"LineWidth",1.5);
-title('Reconstructed signal ');
+% subplot(size(signal,1)+1,1,1);
+% plot(times,sum(signal, 1),"LineWidth",1.5);
+% title('Reconstructed signal ');
 for indx = 1:1:length(frequency_ranges)-1
     subplot(size(signal,1)+1,1,indx+1);
     low = frequency_ranges(indx); 
     high = frequency_ranges(indx+1);
-    plot(times,signal(indx,:),"LineWidth",1.5);
+    plot(times(1:768),signal(indx,1:768),"LineWidth",1.5);
+    % plot(times,signal(indx,:),"LineWidth",1.5);
     xlabel('time (sec)'); ylabel("Amplitude");
     title(sprintf('Reconstructed signal ({%d}-{%d} kHz)', low, high));
 end
-figure();
 
 % to do: make sound normal
-filename = "cosmos_reconstructed.wav";
+filename = "reconstructed_sounds/cosmos_reconstructed"+num2str(OVERLAP_MS)+"_"+num2str(length(frequency_ranges)-1)+"c.wav";
 signal=sum(signal, 1);
 audiowrite(filename,signal,Fs);
 
+subplot(6,1,1);
+plot(times(1:768),signal(1:768),"LineWidth",1.5);
+title('Reconstructed signal ');
