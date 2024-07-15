@@ -45,7 +45,7 @@ def plot_umap(features_rolled_out, phonemes_from, weighted_average_phoneme_lengt
     if len(colors) > 5000:
         s = 3
     else:
-        s - 10
+        s = 10
     
     if colour_map:
         number_to_phoneme = {}
@@ -149,41 +149,20 @@ if __name__=="__main__":
     files_searching = files_searching1
     f.close()
     
-    
     '''
+
     features_rolled_out, phonemes_from, phoneme_to_number = get_features_from_files(files_searching, weighted_average_phoneme_length)
 
     folder_with_mean_and_stds="../average_and_std_phoneme_feature/weighted_average_total/"
     features_rolled_out, phonemes_from, phoneme_to_number  = get_features_from_files(files_searching, weighted_average_phoneme_length, normalize=True, folder_with_mean_and_stds=folder_with_mean_and_stds)
 
     '''
-    with open("../saved_variables/features_from_files.pkl", "rb") as f:  # Python 3: open(..., 'rb')
-        features_rolled_out, phonemes_from, phoneme_to_number = pickle.load(f)
-
-
-    # plotting all classes
-    plot_umap(features_rolled_out, phonemes_from, weighted_average_phoneme_length) 
-
-    # plotting with colour code by class
-    print("moa")
-    map_using = manner_of_articulation_map ### CHANGE
-    name_of_plot = "Manner of Articulation" ### CHANGE
-    plot_umap(features_rolled_out, phonemes_from, weighted_average_phoneme_length, map_using, name_of_plot)
-
-    # plotting with colour code by class
-    print("vowels and consonants")
-    map_using = vowels_and_consonants_map ### CHANGE
-    name_of_plot = "Vowels and Consonants" ### CHANGE
-    plot_umap(features_rolled_out, phonemes_from, weighted_average_phoneme_length, map_using, name_of_plot)
-    
-
-    # plotting normalized 
-    # have to run get averages_and_std_per_phoneme.py first to save files to folder_with_mean_and_stds
-    print("normalized")
-    
-    # plotting all classes
+    print(1)
     with open("../saved_variables/features_from_files_normalized.pkl", "rb") as f:  # Python 3: open(..., 'rb')
         features_rolled_out, phonemes_from, phoneme_to_number = pickle.load(f)
+    print(1)
+
+    # plotting all classes
     plot_umap(features_rolled_out, phonemes_from, weighted_average_phoneme_length) 
 
     # plotting with colour code by class

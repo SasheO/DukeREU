@@ -12,7 +12,7 @@ def zmuv_normalize_phoneme_class(phoneme_class_features_matrix, calculate_mean_a
         phoneme_std (np.array):  the standard deviation (when nan values are ignored)
     '''
     if calculate_mean_and_std:
-        phoneme_mean, phoneme_std = np.nanmean(feature_matrix,0),np.nanstd(feature_matrix,0)
+        phoneme_mean, phoneme_std = np.nanmean(phoneme_class_features_matrix,0),np.nanstd(phoneme_class_features_matrix,0)
     normalized_features = (phoneme_class_features_matrix - phoneme_mean)/(phoneme_std)
     
     return normalized_features, phoneme_mean, phoneme_std
