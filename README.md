@@ -1,7 +1,7 @@
 # DukeREU
 
 ## About
-This directory contains code, presentation, and some other relevant files and folder used by Mezisashe Ojuba during the 2024 Pratt School of Engineering REU. The project of this REU was to develop simplified phoneme-specific mask estimation model building on the [earlier work of Kevin Chu](https://doi.org/10.1121/2.0001698). This readme describes the subfolders as well as important locations to find results, visualizations, etc. This directory contains only a checkpoint of useful code. Moreover, this directory is currently unstructured. The main code-base is complete and better documented.
+This directory contains code, presentation, and some other relevant files and folder used by Mezisashe Ojuba during the 2024 Pratt School of Engineering REU. The project of this REU was to develop simplified phoneme-specific mask estimation model building on the [earlier work of Kevin Chu et al.](https://doi.org/10.1121/2.0001698). This readme describes the subfolders as well as important locations to find results, visualizations, etc. This directory contains only a checkpoint of useful code. Moreover, this directory is currently unstructured. The main code-base is complete and better documented.
 
 
 
